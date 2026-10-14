@@ -1,0 +1,113 @@
+/* 리셋 + 도트 렌더링 기본값 */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--paper);
+  /* 비트맵 폰트는 안티앨리어싱을 끄고 봐야 도트가 산다 */
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
+  text-rendering: geometricPrecision;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+img,
+svg,
+canvas {
+  image-rendering: pixelated;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-head);
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+}
+
+/* 도트 디자인엔 곡선이 없다 */
+* {
+  border-radius: 0 !important;
+}
+
+/* 포커스는 점선 대신 두꺼운 도트 링으로 */
+:focus-visible {
+  outline: var(--border) solid var(--ink);
+  outline-offset: var(--border);
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* 스크롤바도 흑백 각지게 */
+::-webkit-scrollbar {
+  width: var(--d3);
+  height: var(--d3);
+}
+::-webkit-scrollbar-track {
+  background: var(--paper);
+  border-left: var(--border) solid var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  border: var(--border) solid var(--paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

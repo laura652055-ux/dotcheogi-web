@@ -1,0 +1,364 @@
+/* ============================================================
+   도트 UI 컴포넌트 — 테두리 2px, 곡선 0, 그림자는 하드 오프셋.
+   ============================================================ */
+
+/* ---------- 레이아웃 ---------- */
+.shell {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: var(--d4) var(--d4) var(--d16);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--d3);
+}
+.stack-sm { gap: var(--d2); }
+.stack-lg { gap: var(--d6); }
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--d2);
+}
+.row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--d2);
+}
+.wrap { flex-wrap: wrap; }
+.grow { flex: 1 1 auto; min-width: 0; }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--d3);
+}
+@media (max-width: 520px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* ---------- 헤더 ---------- */
+.appbar {
+  border-bottom: var(--border-thick) solid var(--ink);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.appbar-inner {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: var(--d3) var(--d4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--d2);
+}
+.brand {
+  font-family: var(--font-head);
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+.brand-sub {
+  font-family: var(--font-tiny);
+  font-size: 11px;
+  letter-spacing: 0;
+}
+
+/* ---------- 박스 ---------- */
+.box {
+  border: var(--border) solid var(--ink);
+  background: var(--paper);
+  padding: var(--d3);
+}
+.box-raised {
+  box-shadow: var(--shadow);
+}
+.box-thick {
+  border-width: var(--border-thick);
+}
+.box-head {
+  border-bottom: var(--border) solid var(--ink);
+  margin: calc(var(--d3) * -1) calc(var(--d3) * -1) var(--d3);
+  padding: var(--d2) var(--d3);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-head);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--d2);
+}
+
+/* ---------- 버튼 ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--d2);
+  padding: var(--d2) var(--d4);
+  border: var(--border) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  font-family: var(--font-body);
+  line-height: 1.4;
+  text-align: center;
+  /* 도트 느낌: 눌리면 그림자 없이 아래로 내려간다 */
+  transition: none;
+}
+.btn:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn:active:not(:disabled) {
+  transform: translate(var(--d1), var(--d1));
+  box-shadow: none;
+}
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+  color: var(--ink);
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--ink) 0 1px,
+    var(--paper) 1px var(--dot)
+  );
+  box-shadow: none;
+  transform: translate(var(--d1), var(--d1));
+}
+.btn-solid {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-solid:hover:not(:disabled) {
+  background: var(--paper);
+  color: var(--ink);
+}
+.btn-block { width: 100%; }
+.btn-lg {
+  padding: var(--d3) var(--d4);
+  font-family: var(--font-head);
+  font-size: 15px;
+}
+.btn-sm {
+  padding: var(--d1) var(--d2);
+  font-size: 13px;
+  box-shadow: none;
+}
+.btn-sm:active:not(:disabled) { transform: none; }
+.btn-ghost {
+  box-shadow: none;
+  border-color: transparent;
+}
+.btn-ghost:active:not(:disabled) { transform: none; }
+
+/* ---------- 입력 ---------- */
+.field {
+  width: 100%;
+  padding: var(--d2) var(--d3);
+  border: var(--border) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  caret-color: var(--ink);
+}
+.field::placeholder {
+  color: var(--ink);
+  opacity: 0.45;
+}
+.field:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 var(--border) var(--ink);
+}
+textarea.field {
+  min-height: calc(var(--d16) + var(--d8));
+  resize: vertical;
+  line-height: 1.8;
+}
+
+/* ---------- 배지 / 칩 ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--d1);
+  padding: 1px var(--d2);
+  border: var(--border) solid var(--ink);
+  font-family: var(--font-tiny);
+  font-size: 11px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.badge-solid {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ---------- 진행 바 (도트 칸으로 표현) ---------- */
+.bar {
+  display: flex;
+  gap: 2px;
+  border: var(--border) solid var(--ink);
+  padding: 2px;
+  height: var(--d4);
+}
+.bar-cell {
+  flex: 1 1 0;
+  background: var(--paper);
+}
+.bar-cell.on {
+  background: var(--ink);
+}
+
+/* ---------- 코드 블록 ---------- */
+.code {
+  border: var(--border) solid var(--ink);
+  background: var(--paper);
+  padding: var(--d3);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+  tab-size: 4;
+}
+.code-head {
+  font-family: var(--font-tiny);
+  font-size: 11px;
+  border: var(--border) solid var(--ink);
+  border-bottom: none;
+  padding: 2px var(--d2);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ---------- 보기 상자 (실기 <보기>) ---------- */
+.bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--d2);
+  padding: var(--d3);
+  border: var(--border) dashed var(--ink);
+}
+
+/* ---------- 선택지 ---------- */
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--d2);
+  width: 100%;
+  padding: var(--d2) var(--d3);
+  border: var(--border) solid var(--ink);
+  background: var(--paper);
+  text-align: left;
+  line-height: 1.6;
+}
+.choice:hover:not(:disabled) {
+  box-shadow: inset 0 0 0 var(--border) var(--ink);
+}
+.choice[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.choice-key {
+  flex: none;
+  width: var(--d6);
+  height: var(--d6);
+  display: grid;
+  place-items: center;
+  border: var(--border) solid currentColor;
+  font-family: var(--font-tiny);
+  font-size: 12px;
+}
+
+/* ---------- 정답/오답 표시 ---------- */
+.verdict {
+  display: flex;
+  align-items: center;
+  gap: var(--d2);
+  padding: var(--d2) var(--d3);
+  border: var(--border-thick) solid var(--ink);
+  font-family: var(--font-head);
+  font-size: 15px;
+}
+.verdict-o {
+  background: var(--ink);
+  color: var(--paper);
+}
+.verdict-x {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* ---------- 잔디(학습일) 히트맵 ---------- */
+.heatmap {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, var(--d3));
+  gap: 2px;
+  overflow-x: auto;
+  padding-bottom: var(--d1);
+}
+.heat-cell {
+  width: var(--d3);
+  height: var(--d3);
+  border: 1px solid var(--ink);
+}
+
+/* ---------- 타이포 유틸 ---------- */
+.t-head { font-family: var(--font-head); }
+.t-tiny { font-family: var(--font-tiny); font-size: 11px; }
+.t-mono { font-family: var(--font-mono); }
+.t-lg { font-size: 20px; }
+.t-xl { font-size: 28px; line-height: 1.3; }
+.t-num { font-family: var(--font-head); font-size: 32px; line-height: 1; }
+.t-center { text-align: center; }
+.t-right { text-align: right; }
+.t-dim { opacity: 0.6; }
+.t-invert { background: var(--ink); color: var(--paper); padding: 0 var(--d1); }
+
+.hr {
+  height: var(--border);
+  background: var(--ink);
+  border: none;
+}
+.hr-dot {
+  height: 0;
+  border: none;
+  border-top: var(--border) dashed var(--ink);
+}
+
+/* ---------- 깜빡이는 커서 ---------- */
+.caret::after {
+  content: '_';
+  animation: blink 1s steps(1, end) infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ---------- 로고(도트 타이틀) ---------- */
+.logo {
+  font-family: var(--font-head);
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: 2px;
+}
+@media (max-width: 520px) {
+  .logo { font-size: 30px; }
+  .t-xl { font-size: 22px; }
+}
+
+/* 스크린리더 전용 */
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
